@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "96865113961",
+    "project_id": "starry-sunup-503314-q3",
+    "storage_bucket": "starry-sunup-503314-q3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96865113961:android:472d5bc917816a54620ff8",
+        "android_client_info": {
+          "package_name": "dev.joshdev.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMV6pBNSFEi9bDI9jZzBUHSpw6MhuUqFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
