@@ -1,7 +1,6 @@
 import 'package:application/firebase_options.dart';
 import 'package:application/views/login_view.dart';
 import 'package:application/views/register_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +12,10 @@ void main() {
       title: 'Flutter Demo',
       //theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
+      routes: {
+        '/login/': (context) => const LoginView(),
+        '/register/': (context) => const RegisterView(),
+      },
     ),
   );
 }
@@ -22,27 +25,25 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Page')),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              if (user?.emailVerified ?? false) {
-                print('verified');
-              } else {
-                print('not verified');
-              }
-              return const Center(child: Text('Done Initializing Firebase'));
-            default:
-              return const Center(child: CircularProgressIndicator());
-          }
-        },
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
       ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            // final user = FirebaseAuth.instance.currentUser;
+            // if (user?.emailVerified ?? false) {
+            //   print('User is verified');
+            // } else {
+            //   print('User is not verified');
+            //   return const EmailVerifyView();
+            // }
+            return const LoginView();
+          default:
+            return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }
