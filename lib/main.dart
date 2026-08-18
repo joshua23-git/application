@@ -1,7 +1,7 @@
 import 'package:application/constants/routes.dart';
 import 'package:application/service/auth/auth_service.dart';
 import 'package:application/views/login_view.dart';
-import 'package:application/views/notes/new_note_view.dart';
+import 'package:application/views/notes/create_update_note_view.dart';
 import 'package:application/views/notes/notes_view.dart';
 import 'package:application/views/register_view.dart';
 import 'package:application/views/verify_email_view.dart';
@@ -21,7 +21,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const EmailVerifyView(),
-        newNoteRoute: (context) => const NewNoteView(),
+        createUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
     ),
   );
