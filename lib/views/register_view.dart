@@ -2,7 +2,6 @@ import 'package:application/constants/routes.dart';
 import 'package:application/service/auth/auth_exceptions.dart';
 import 'package:application/service/auth/auth_service.dart';
 import 'package:application/utilities/dialogs/error_dialog.dart';
-import 'package:application/utilities/dialogs/generic_dialog.dart';
 
 import 'package:flutter/material.dart';
 

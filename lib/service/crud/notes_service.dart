@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:application/extensions/list/flilter.dart';
 import 'package:application/service/crud/crud_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
@@ -10,6 +11,8 @@ class NotesService {
   Database? _db;
 
   List<DatabaseNote> _notes = [];
+
+  DatabaseUser? _user;
 
   static final NotesService _shared = NotesService._sharedInstance();
   NotesService._sharedInstance() {
@@ -24,14 +27,30 @@ class NotesService {
   late final StreamController<List<DatabaseNote>> _notesStreamController;
 
   Stream<List<DatabaseNote>> get allNotes =>
-      _notesStreamController.stream.map((notes) => notes.toList());
-
-  Future<DatabaseUser> getOrCreateUser({required String email}) async {
+      _notesStreamController.stream.filter((note) {
+        final currentUser = _user;
+        if (currentUser != null) {
+          return note.userId == currentUser.id;
+        } else {
+          throw UserShouldBeSetBeforeReadingAllNotesException();
+        }
+      });
+  Future<DatabaseUser> getOrCreateUser({
+    required String email, 
+    bool setAsCurrentUser = true,
+  
+  }) async {
     try {
       final user = await getUser(email: email);
+      if (setAsCurrentUser) {
+        _user = user;
+      }
       return user;
     } on UserNotFoundException {
       final createdUser = await createUser(email: email);
+      if (setAsCurrentUser) {
+        _user = createdUser;
+      }
       return createdUser;
     } catch (e) {
       rethrow;
