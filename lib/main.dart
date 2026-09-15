@@ -24,10 +24,8 @@ void main() {
         child: const HomePage(),
       ),
       routes: {
-        loginRoute: (context) => const LoginView(),
-        registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NotesView(),
-        verifyEmailRoute: (context) => const EmailVerifyView(),
+        
+        
         createUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
     ),
@@ -41,7 +39,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      if (state is AuthStateLoading) {
+      if (state is AuthStateUninitialized) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is AuthStateLoggedIn) {
         return const NotesView();
@@ -49,10 +47,8 @@ class HomePage extends StatelessWidget {
         return const EmailVerifyView();
       } else if (state is AuthStateLoggedOut) {
         return const LoginView();
-      } else if (state is AuthStateloginFailure) {
-        return const LoginView();
-      } else if (state is AuthStateLogOutFailure) {
-        return const NotesView();
+      } else if (state is AuthStateRegistering) {
+        return const RegisterView();
       } else {
         return Scaffold(
           body: Center(
