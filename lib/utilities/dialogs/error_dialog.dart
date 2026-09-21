@@ -13,6 +13,6 @@ Future<void> showErrorDialog(
     content: text,
     optionsBuilder: () => {
       'OK': null,
-    }, cancelActionText: '', defaultActionText: '',
+    }
   ); 
 }

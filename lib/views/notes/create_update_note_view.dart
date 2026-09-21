@@ -4,11 +4,10 @@ import'package:application/service/cloud/firebase_cloud_storage.dart';
 import 'package:application/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:application/utilities/generics/get_arguments.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
-  const CreateUpdateNoteView({super.key});
+  const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
   State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();

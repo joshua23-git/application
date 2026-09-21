@@ -7,9 +7,7 @@ Future<T?> showGenericDialog<T>({
   required BuildContext context,
   required String title,
   required String content,
-  required DialogOptionBuilder<T> optionsBuilder,
-  required String cancelActionText,
-  required String defaultActionText,
+  required DialogOptionBuilder optionsBuilder,
 }) {
   final options = optionsBuilder();
   return showDialog<T>(
@@ -19,34 +17,18 @@ Future<T?> showGenericDialog<T>({
         title: Text(title),
         content: Text(content),
         actions: options.keys.map((optionTitle) {
-          final  value = options[optionTitle];
+          final value = options[optionTitle];
           return TextButton(
             onPressed: () {
-              if (value == null) {
-                Navigator.of(context).pop();
-              } else {
+              if (value != null) {
                 Navigator.of(context).pop(value);
+              } else {
+                Navigator.of(context).pop();
               }
             },
             child: Text(optionTitle),
           );
-        }).toList()
-          // ..add(
-          //   TextButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //     },
-          //     child: Text(cancelActionText),
-          //   ),
-          // )
-          // ..add(
-          //   TextButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pop(options[defaultActionText]);
-          //     },
-          //     child: Text(defaultActionText),
-          //   ),
-          // ),
+        }).toList(),
       );
     },
   );

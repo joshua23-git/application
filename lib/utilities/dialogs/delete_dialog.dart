@@ -9,8 +9,6 @@ Future<bool> showDeleteDialog(BuildContext context) {
     optionsBuilder: () => {
       'Cancel': false,
       'Delete': true,
-    },
-    cancelActionText: 'Cancel',
-    defaultActionText: 'Delete',
+    }
   ).then((value) => value ?? false);
 }
