@@ -88,6 +88,7 @@ class LoadingScreen {
       },
     );
     
+    // ignore: invalid_null_aware_operator
     state?.insert(overlay);
     return LoadingScreenController(
       close: () {
