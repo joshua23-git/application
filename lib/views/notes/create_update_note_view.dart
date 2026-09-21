@@ -4,7 +4,6 @@ import'package:application/service/cloud/firebase_cloud_storage.dart';
 import 'package:application/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:application/utilities/generics/get_arguments.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
@@ -108,24 +107,26 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
         ],
       
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<CloudNote>(
         future: createOrGetExistingNote(context),
         builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-               snapshot.data as CloudNote;
-              _setupTextControllerListener();
-              return TextField(
-                controller: _textController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: 'Start typing your note...',
-                ),
-              );
-            default:
-              return const CircularProgressIndicator();
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
           }
+
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          _setupTextControllerListener();
+          return TextField(
+            controller: _textController,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            decoration: const InputDecoration(
+              hintText: 'Start typing your note...',
+            ),
+          );
         },
       ),
     );

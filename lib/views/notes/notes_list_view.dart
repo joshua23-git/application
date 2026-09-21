@@ -10,11 +10,11 @@ class NotesListView extends StatelessWidget {
   final NoteCallback onTapNote;
 
   const NotesListView({
-    Key? key,
+    super.key,
     required this.notes,
     required this.onDeleteNote,
     required this.onTapNote,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

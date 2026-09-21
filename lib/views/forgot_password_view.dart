@@ -40,9 +40,15 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             await showPasswordResetEmailSentDialog(
               context
             );
+            if (!context.mounted) {
+              return;
+            }
           }
 
           if(state.exception != null) {
+            if (!context.mounted) {
+              return;
+            }
             await showErrorDialog(
               context,
               'We could not process your request. Please make sure that you are a registered user and that you have entered the correct email address.',
