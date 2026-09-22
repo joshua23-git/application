@@ -20,26 +20,24 @@ class _EmailVerifyViewState extends State<EmailVerifyView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text('Please verify your email address.'),
-              const Text('If you have not received a verification email, please check your spam folder.'),
-              const Text('If you still cannot find the email, please click the button below to resend the verification email.'),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(const AuthEventSendEmailVerification());
-                },
-                child: const Text('Resend Verification Email'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(const AuthEventLogOut());
-                },
-                child: const Text('Restart'),
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            const Text('Please verify your email address.'),
+            const Text('If you have not received a verification email, please check your spam folder.'),
+            const Text('If you still cannot find the email, please click the button below to resend the verification email.'),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(const AuthEventSendEmailVerification());
+              },
+              child: const Text('Resend Verification Email'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(const AuthEventLogOut());
+              },
+              child: const Text('Restart'),
+            ),
+          ],
         ),
       ),
     );

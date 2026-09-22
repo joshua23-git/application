@@ -34,25 +34,16 @@ void main() {
   );
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(const AuthEventInitialize());
-  }
-
-  @override
   Widget build(BuildContext context) {
+    context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.isLoading) {
+        // TODO: implement listener
+        if(state.isLoading) {
           LoadingScreen().show(
             context: context,
             text: state.loadingText ?? 'Please wait a moment',
@@ -62,26 +53,26 @@ class _HomePageState extends State<HomePage> {
         }
       },
       builder: (context, state) {
-        if (state is AuthStateUninitialized) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is AuthStateLoggedIn) {
-          return const NotesView();
-        } else if (state is AuthStateNeedsVerification) {
-          return const EmailVerifyView();
-        } else if (state is AuthStateLoggedOut) {
-          return const LoginView();
-        } else if (state is AuthStateRegistering) {
-          return const RegisterView();
-        } else if (state is AuthStateForgotPassword) {
-          return const ForgotPasswordView();
-        } else {
-          return Scaffold(
-            body: Center(
-              child: Text('State: $state'),
-            ),
-          );
-        }
-      },
-    );
+      if (state is AuthStateUninitialized) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is AuthStateLoggedIn) {
+        return const NotesView();
+      } else if (state is AuthStateNeedsVerification) {
+        return const EmailVerifyView();
+      } else if (state is AuthStateLoggedOut) {
+        return const LoginView();
+      } else if (state is AuthStateRegistering) {
+        return const RegisterView();
+      } else if (state is AuthStateForgotPassword) {
+        return const ForgotPasswordView();
+      } else {
+        return Scaffold(
+          body: Center(
+            child: Text('State: $state'),
+          ),
+        );
+      }
+    });
+
   }
 }

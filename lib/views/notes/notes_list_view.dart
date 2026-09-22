@@ -10,11 +10,11 @@ class NotesListView extends StatelessWidget {
   final NoteCallback onTapNote;
 
   const NotesListView({
-    super.key,
+    Key? key,
     required this.notes,
     required this.onDeleteNote,
-    required this.onTapNote,
-  });
+    required this.onTapNote ,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,11 @@ class NotesListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final note = notes.elementAt(index);
         return ListTile(
+
+          onTap: () {
+            onTapNote(note);
+          },
+
           title: Text(
             note.text,
             maxLines: 1,
@@ -36,11 +41,8 @@ class NotesListView extends StatelessWidget {
                 onDeleteNote(note);
               }
             },
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
           ),
-          onTap: () {
-            onTapNote(note);
-          },
         );
       },
     );

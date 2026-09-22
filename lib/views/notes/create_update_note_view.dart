@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
-  const CreateUpdateNoteView({super.key});
+  const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
   State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
@@ -107,26 +107,24 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
         ],
       
       ),
-      body: FutureBuilder<CloudNote>(
+      body: FutureBuilder(
         future: createOrGetExistingNote(context),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+               snapshot.data as CloudNote;
+              _setupTextControllerListener();
+              return TextField(
+                controller: _textController,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  hintText: 'Start typing your note...',
+                ),
+              );
+            default:
+              return const CircularProgressIndicator();
           }
-
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          _setupTextControllerListener();
-          return TextField(
-            controller: _textController,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: const InputDecoration(
-              hintText: 'Start typing your note...',
-            ),
-          );
         },
       ),
     );

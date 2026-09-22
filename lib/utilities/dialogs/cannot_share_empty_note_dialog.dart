@@ -8,6 +8,6 @@ Future <void> showCannotShareEmptyNoteDialog(BuildContext context) {
     content: 'You cannot share an empty note!',
     optionsBuilder: () => {
       'OK': null,
-    }, cancelActionText: '', defaultActionText: '',
+    }
   );
 } 
