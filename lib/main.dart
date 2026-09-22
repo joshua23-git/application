@@ -11,7 +11,6 @@ import 'package:application/views/notes/notes_view.dart';
 import 'package:application/views/register_view.dart';
 import 'package:application/views/verify_email_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter/material.dart';
 
 void main() {

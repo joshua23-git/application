@@ -3,6 +3,7 @@ import 'package:application/service/cloud/cloud_storage_constants.dart';
 import 'package:application/service/cloud/cloud_storage_exception.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes');
 
@@ -26,12 +27,22 @@ class FirebaseCloudStorage {
   }
 
   Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) {
+
+
     final allNotes = notes
-        .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
-        .snapshots()
-        .map((event) => event.docs.map((doc) => CloudNote.fromSnapshot(doc)));
+          .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
+          .snapshots()
+          .map(
+            (event) => event.docs
+                .map(
+                  (doc) => CloudNote.fromSnapshot(doc)
+                ));
     return allNotes;
+
   }
+  
+  
+
 
   Future<CloudNote> createNewNote({required String ownerUserId}) async {
     final document = await notes.add({
